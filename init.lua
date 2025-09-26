@@ -74,4 +74,4 @@ chooser:choices({
     {["text"] = "New Ghostty Window", ["app"] = "Ghostty"}
 })
 
-hs.hotkey.bind({"ctrl"}, "space", function() chooser:show() end)
+hs.hotkey.bind({"ctrl", "shift"}, "space", function() chooser:show() end)
