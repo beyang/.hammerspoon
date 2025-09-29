@@ -75,3 +75,36 @@ chooser:choices({
 })
 
 hs.hotkey.bind({"ctrl", "shift"}, "space", function() chooser:show() end)
+
+-- Global action registry
+local actions = {
+    ["new-chrome"] = function() 
+        createNewWindow("Google Chrome", {{"File", "New Window"}})
+    end,
+    ["new-ghostty"] = function() 
+        createNewWindow("Ghostty", {{"File", "New Window"}, {"Window", "New Window"}, {"Shell", "New Window"}})
+    end,
+    ["focus-chrome"] = function() 
+        hs.application.launchOrFocus("Google Chrome") 
+    end,
+    ["focus-ghostty"] = function() 
+        hs.application.launchOrFocus("Ghostty") 
+    end,
+    ["show-chooser"] = function() 
+        chooser:show() 
+    end,
+}
+
+-- Global function to execute actions by ID  
+function executeAction(actionId)
+    if actions[actionId] then
+        actions[actionId]()
+        hs.alert.show("Executed: " .. actionId, 1)
+        return true
+    else
+        hs.alert.show("Action '" .. actionId .. "' not found", 2)
+        return false
+    end
+end
+
+hs.allowAppleScript(true)
